@@ -1,0 +1,152 @@
+<div class="bg-light px-2 pb-1 mx-1">
+  <!-- Start Title -->
+  <div *ngIf="title" class="row align-items-center">
+    <div class="col mx-auto">
+      <h3>{{ title }}</h3>
+    </div>
+  </div>
+  <!-- End Title -->
+
+  <!-- Start Messages Area -->
+  <div class="row align-items-center justify-content-center py-2">
+    <div class="col">
+      <ul #scrollArea class="messages" (scroll)="shouldShowScroller()">
+        <div *ngFor="let message of messages">
+          <li
+            class="message appeared"
+            [ngClass]="message.self ? 'right' : 'left'"
+            [ngSwitch]="message.type"
+          >
+            <div *ngSwitchCase="'text'" class="wrapper">
+              <div class="text">
+                <p class="from" *ngIf="!message.self">{{ message.from }}</p>
+                {{ message.content }}
+              </div>
+            </div>
+            <div *ngSwitchCase="'audio'" class="wrapper">
+              <audio class="audio" controls>
+                <source [src]="message.audio" type="audio/ogg" />
+              </audio>
+            </div>
+          </li>
+        </div>
+        <div
+          *ngIf="showScroller"
+          class="scroller"
+          [ngStyle]="{
+            'top.px': scrollerPosition.bottom,
+            'left.px': scrollerPosition.right
+          }"
+          (click)="scrollToBottom()"
+        >
+          <fa-icon [icon]="faChevronCircleDown"></fa-icon>
+        </div>
+      </ul>
+    </div>
+  </div>
+  <!-- End Messages Area -->
+
+  <!-- Start Send Message Area -->
+  <div
+    *ngIf="registered; else registrationNotice"
+    class="row align-items-center justify-content-center"
+  >
+    <div class="col-sm-9 py-1">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          name="message"
+          (keyup.enter)="sendMessage()"
+          [(ngModel)]="currentMessage"
+          [disabled]="recordStatus.recording"
+        />
+        <div
+          *ngIf="!recordStatus.recording; else recordingTooltip"
+          class="input-group-append"
+        >
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="startRecording()"
+          >
+            <fa-icon [icon]="faMicrophone"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 py-1">
+      <div class="btn-group d-flex" role="group">
+        <button
+          type="button"
+          class="btn btn-success btn-block"
+          (click)="sendMessage()"
+          [disabled]="canSendMessage()"
+        >
+          Enviar
+        </button>
+        <div
+          class="btn-group"
+          ngbDropdown
+          placement="top-right"
+          role="group"
+          aria-label="Send message with a commands dropdown"
+        >
+          <button
+            class="btn btn-success dropdown-toggle-split"
+            ngbDropdownToggle
+          ></button>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <button ngbDropdownItem disabled>Comandos</button>
+            <div class="dropdown-divider"></div>
+            <button ngbDropdownItem (click)="sendMessage('/ajuda')">
+              Ajuda
+            </button>
+            <button ngbDropdownItem (click)="sendMessage('/reset')">
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Send Message Area -->
+</div>
+
+<ng-template #registrationNotice>
+  <div class="row align-items-center justify-content-center">
+    <div class="col-sm-9 py-1">
+      <input
+        type="text"
+        class="form-control registration-notice"
+        value="Para poder usar o Chatbot, cadastro é necessário"
+        disabled
+      />
+    </div>
+    <div class="col-sm-3 py-1">
+      <button class="btn btn-danger btn-block" (click)="register()">
+        Cadastrar
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #recordingTooltip>
+  <div class="input-group-append">
+    <button
+      class="btn btn-outline-danger"
+      type="button"
+      (click)="stopRecording()"
+    >
+      <fa-icon [icon]="faTimes"></fa-icon>
+    </button>
+    <div class="recording-time">{{ recordStatus.time }}</div>
+    <button
+      class="btn btn-outline-success"
+      type="button"
+      (click)="saveRecording()"
+    >
+      <fa-icon [icon]="faCheck"></fa-icon>
+    </button>
+  </div>
+</ng-template>

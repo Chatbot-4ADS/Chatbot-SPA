@@ -1,0 +1,198 @@
+// Breakpoints for max height of the messages area
+$phone-sm: 320px;
+$phone: 376px;
+$tablet: 768px;
+$desktop: 1024px;
+$animation-duration: 0.25s;
+
+@mixin phone-sm {
+  @media (min-width: $phone-sm) {
+    @content;
+  }
+}
+
+@mixin phone {
+  @media (min-width: $phone) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+@keyframes show-up {
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+  100% {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+@keyframes ease-right {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+
+.messages {
+  position: relative;
+  list-style: none;
+  padding: 20px 10px 0 10px;
+  margin: 0;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  @include phone-sm {
+    max-height: 65vh;
+    height: 65vh;
+  }
+  @include phone {
+    max-height: 70vh;
+    height: 70vh;
+  }
+  @include tablet {
+    max-height: 80vh;
+    height: 80vh;
+  }
+  @include desktop {
+    max-height: 80vh;
+    height: 80vh;
+  }
+  border: 1px solid rgb(202, 202, 202);
+  background-color: rgb(212, 212, 212);
+  scroll-behavior: smooth;
+}
+
+.messages .message {
+  clear: both;
+  overflow: hidden;
+  margin-bottom: 20px;
+  transition: all 0.5s linear;
+  opacity: 0;
+}
+
+.messages .message.left .wrapper {
+  background-color: #ffe6cb;
+  margin-left: 20px;
+}
+
+.messages .message.left .wrapper::after,
+.messages .message.left .wrapper::before {
+  right: 100%;
+  border-right-color: #ffe6cb;
+}
+
+.messages .message.left .text {
+  color: #c48843;
+}
+
+.messages .message.right .wrapper {
+  background-color: #c7eafc;
+  margin-right: 20px;
+  float: right;
+}
+
+.messages .message.right .wrapper::after,
+.messages .message.right .wrapper::before {
+  left: 100%;
+  border-left-color: #c7eafc;
+}
+
+.messages .message.right .text {
+  color: #45829b;
+  text-align: right;
+}
+
+.messages .message.right {
+  animation: show-up $animation-duration, ease-right $animation-duration;
+}
+
+.messages .message.left {
+  animation: show-up $animation-duration;
+}
+
+.messages .message.appeared {
+  opacity: 1;
+}
+
+.messages .message .wrapper {
+  display: inline-block;
+  padding: 20px;
+  border-radius: 6px;
+  width: calc(100% - 85px);
+  min-width: 100px;
+  position: relative;
+}
+
+.messages .message .wrapper::after,
+.messages .message .wrapper:before {
+  top: 18px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.messages .message .wrapper::after {
+  border-width: 13px;
+  margin-top: 0px;
+}
+
+.messages .message .wrapper::before {
+  border-width: 15px;
+  margin-top: -2px;
+}
+
+.messages .message .wrapper .text {
+  font-size: 18px;
+  font-weight: 300;
+  white-space: pre-line;
+}
+
+.messages .message .wrapper .audio {
+  width: 100%;
+}
+
+.registration-notice {
+  color: rgb(167, 167, 167);
+}
+
+.from {
+  font-size: 10px;
+  font-weight: 200;
+}
+
+.scroller {
+  position: fixed;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.recording-time {
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+}
