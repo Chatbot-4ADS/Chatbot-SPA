@@ -1,34 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { RouterOutlet } from '@angular/router';
+import { slideInAnimation } from './animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [
+    slideInAnimation
+  ]
 })
 export class AppComponent implements OnInit {
   title = 'Chatbot-Web';
-  navItems: { name: string, path: string }[] = [
-    {
-      name: 'Home',
-      path: '/home'
-    },
-    {
-      name: 'Sobre',
-      path: '/about'
-    },
-  ];
-  isMenuCollapsed = false;
 
-  constructor(
-    private router: Router
-  ) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    this.router.events.pipe(filter(
-      (event) => event instanceof NavigationStart)).subscribe((event) => {
-        this.isMenuCollapsed = true;
-      });
+  ngOnInit(): void { }
+
+  prepareRoute(outlet: RouterOutlet): boolean {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }
 }

@@ -18,7 +18,7 @@ export interface Message {
 }
 
 @Component({
-  selector: 'app-chatbot',
+  selector: 'app-fatec-chatbot',
   templateUrl: './chatbot.component.html',
   styleUrls: ['./chatbot.component.scss'],
   providers: [AudioRecordingServiceService]

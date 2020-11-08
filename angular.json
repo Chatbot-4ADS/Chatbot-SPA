@@ -23,17 +23,10 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": [],
-            "allowedCommonJsDependencies": [
-               "recordrtc"
-             ]
+            "allowedCommonJsDependencies": ["recordrtc"]
           },
           "configurations": {
             "production": {
@@ -83,23 +76,6 @@
             "browserTarget": "Chatbot-Web:build"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -108,24 +84,11 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Chatbot-Web:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "Chatbot-Web:serve:production"
-            }
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "Chatbot-Web"
 }

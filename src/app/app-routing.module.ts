@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AboutComponent } from './pages/about/about.component';
-import { HomeComponent } from './pages/home/home.component';
+import { ChatbotComponent } from './pages/chatbot/chatbot.component';
 
 const routes: Routes = [
   {
@@ -10,12 +10,14 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'about',
-    component: AboutComponent
+    path: 'home',
+    component: AboutComponent,
+    data: { animation: 'AboutPage' }
   },
   {
-    path: 'home',
-    component: HomeComponent
+    path: 'chatbot',
+    component: ChatbotComponent,
+    data: { animation: 'ChatbotPage' }
   }
 ];
 
